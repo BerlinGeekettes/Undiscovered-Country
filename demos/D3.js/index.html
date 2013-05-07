@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>UFOs</title>
+
+    <meta charset="UTF-8">
+
+     <!-- source libraries -->
+    <script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/square/crossfilter/master/crossfilter.min.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/NickQiZhu/dc.js/master/dc.min.js"></script>
+
+    <!-- our script -->
+    <script type="text/javascript" src="CODEMOTION.UFO.VIS.js"></script>
+
+    <!-- dc.js stylesheet -->
+    <link rel="stylesheet" type="text/css" href="dc.css"/>
+
+</head>
+<body>
+
+<!-- I basically just copy-pasted the anchor div example from the dc.js page, -->
+<!-- altering minor things like headers, div id attributes, and -->
+<!-- variable names in the script. I've put three asterisks: *** to -->
+<!-- indicate lines where I changed something. -->
+
+<h1>UFO Sightings</h1>
+
+<!-- A div anchor that can be identified by id -->
+<div id="date-chart">                                                                     <!--***-->
+    <!-- Title or anything you want to add above the chart -->
+    <p><span>Date of sighting</span>                                                                     <!--***-->
+    <!--
+        if a link with css class "reset" is present then the chart
+        will automatically turn it on/off based on whether there is filter
+        set on this chart (slice selection for pie chart and brush
+        selection for bar chart)
+     -->
+    <a class="reset" href="javascript: dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>       <!--***-->
+    <!--
+        dc.js will also automatically inject applied current filter value into
+        any html element with css class set to "filter"
+    -->
+    <span class="reset" style="display: none;">Current filter: <span class="filter"></span></span></p>
+</div>
+
+<div id="shape-chart">                                                                     <!--***-->
+    <!-- Title or anything you want to add above the chart -->
+    <p><span>Shape of UFO</span>                                                                     <!--***-->
+    <!--
+        if a link with css class "reset" is present then the chart
+        will automatically turn it on/off based on whether there is filter
+        set on this chart (slice selection for pie chart and brush
+        selection for bar chart)
+     -->
+    <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>       <!--***-->
+    <!--
+        dc.js will also automatically inject applied current filter value into
+        any html element with css class set to "filter"
+    -->
+    <span class="reset" style="display: none;">Current filter: <span class="filter"></span></span></p>
+</div>
+
+</body>
+</html>
