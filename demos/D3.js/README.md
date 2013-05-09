@@ -49,11 +49,11 @@ D3.js Demo
 
    Here's a commented [example.](https://github.com/BerlinGeekettes/Undiscovered-Country/blob/master/demos/D3.js/index.html)
 
-2a. For any who have absolutely zero Javascript experience (we've all been there) - to view the html page in browser with Javascript, you'll generally need to have a local server running. If you're using a Unix system (this includes Macs), this can be accomplished with one command in your console:
+   **2a**. For any who have absolutely zero Javascript experience (we've all been there) - to view the html page in browser with Javascript, you'll generally need to have a local server running. If you're using a Unix system (this includes Macs), this can be accomplished with one command in your console:
 
-    ```
-    $ python -m SimpleHTTPServer
-    ```
+      ```
+      $ python -m SimpleHTTPServer
+      ```
         
    Now open your browser to http://localhost:8000 (8000 being the default port), and you should be able to navigate directly to the file.
 
