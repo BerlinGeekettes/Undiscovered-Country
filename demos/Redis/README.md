@@ -31,3 +31,82 @@ sorted sets in redis.
 
 * http://www.infochimps.com/datasets/delicious-bookmarks-september-2009
 
+Walkthrough
+-------------------------------------
+
+	1. Download and compile redis
+	Redis is well suited for high read and write rates and when small data 
+	losses can be accepted. Data is kept in-memory but redis also provides
+	different persistence models.
+
+	PREPARED:
+	> wget http://redis.googlecode.com/files/redis-2.6.13.tar.gz
+	> tar xzf redis-2.6.13.tar.gz
+	> cd redis-2.6.13
+	> make
+
+	2. Install the Ruby gems (I use ruby-1.9.3)
+
+	PREPARED:
+	> gem install redis
+
+	3. Start redis server
+
+	> redis-server # will listen on port 6379 
+
+	4. Start redis shell
+
+	> redis-cli
+
+	5. Simple redis commands
+
+	redis> SET title "redis"
+	redis> GET title
+	redis> DEL title
+
+	6. Recommendations using sorted sets
+	
+	List of commands on sorted sets:
+	http://redis.io/commands#sorted_set
+
+	PREPARED:
+	Download from http://www.infochimps.com/datasets/delicious-bookmarks-september-2009
+	Contains 10 days data from delicious.com. 
+	We use it to find popular tag combinations.
+
+	Add elements to the demo:photography set
+	redis> ZINCRBY demo:photography 1 design
+	redis> ZINCRBY demo:photography 1 award
+	redis> ZINCRBY demo:photography 1 design
+
+	Query elements by their score in reverse order, starts with the highest score
+	redis> ZREVRANGE demo:photography 0 10
+
+	Query elements by their score in reverse order for a certain range of scores.	
+	redis> ZREVRANGEBYSCORE demo:photography 10 0
+	redis> ZREVRANGEBYSCORE demo:photography +inf 0
+	redis> ZREVRANGEBYSCORE demo:photography 1 0
+
+	Load data into redis.
+	PREPARED:
+	> ruby load_delicious_data.rb data/delicious-rss # (~1250000 lines)
+	For every tag it stores a sorted set of related tags. Scores reflect the number of
+	times a pair of tags has been combined.
+
+	The matrix for the tag combinations forms a sparse matrix and can be represented 
+	with sorted sets. For each tag we store a sorted set of tags that were combined 
+	with it. Scores of the sorted set reflect the number of combinations.
+	(No optimizations here, simplest approach as possible)
+
+	Check number of keys and memory usage: 
+	redis> INFO
+
+	Find 10 most popular tags:
+	redis> ZREVRANGE "delicious:all" 0 9 WITHSCORES
+
+	Find all that have been combined at least 1000 times:
+	redis> ZREVRANGEBYSCORE "delicious:all" +inf 1000 WITHSCORES
+
+	List all tags that have been combined with "photography" sorted by popularity
+	redis> ZREVRANGE "delicious:photography" 0 -1
+	redis> ZREVRANGE "delicious:photography" 0 9
