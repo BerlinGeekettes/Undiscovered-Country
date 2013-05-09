@@ -17,12 +17,14 @@ D3.js Demo
     <script type="text/javascript" src="CODEMOTION.UFO.VIS.js"></script>
 
     <!-- dc.js stylesheet -->
-    <link rel="stylesheet" type="text/css" href="https://raw.github.com/NickQiZhu/dc.js/master/test/dc.css"/>
+    <link rel="stylesheet" type="text/css" href="dc.css"/>
    ```
    
    We'll be using Mike Bostock's fantastic library [D3.js](http://d3js.org/), which is flexible and powerful but operates at a fairly low level (i.e. targeting individual SVG elements) - so even though there are all sorts of [wonderful](http://alignedleft.com/tutorials/d3/) [tutorials](http://www.jeromecukier.net/blog/2013/03/05/d3-tutorial-at-strata-redux/) [out](http://christopheviau.com/d3_tutorial/) [there](http://www.d3noob.org/) to ease the process, it can take some time to get a basic chart up and running.
 
    To ease the process, we'll use the higher-level [dc.js](http://nickqizhu.github.io/dc.js/), which provides a nice wrapper to quickly build interactive D3 charts. DC.js also depends on [crossfilter.js](http://square.github.io/crossfilter/), another Bostock library that provides tools for slicing and dicing data across multiple dimensions.
+
+   The javascript libraries can be hosted remotely, but for styling you'll want to save a local copy of [dc.css](https://raw.github.com/NickQiZhu/dc.js/master/test/dc.css).
 
    In the body - copy and paste the anchor divs from the [dc.js homepage](http://nickqizhu.github.io/dc.js/), with some minor modifications:
 
