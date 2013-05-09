@@ -176,14 +176,11 @@ pre, code {
 
 pre {
   width: 100%;
-  padding: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,.1);
   overflow: auto;
 }
 
 code {
-  padding: 3px;
-  margin: 0 3px;
   box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
 
@@ -429,3 +426,50 @@ Small Device Styles
   }
 
 }
+
+
+
+/*******************************************************************************
+Style Updates by Johanna
+*******************************************************************************/
+.headshot {
+  float: left;
+  width: 212px;
+}
+
+.headshot img {
+  width: 200px;
+  height: 200px;
+}
+
+.bio {
+  float: left;
+  width: 420px;
+  margin-top: 6px;
+  margin-left: 8px;  
+}
+
+hr {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.relblock {
+position: relative;
+display: block;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
