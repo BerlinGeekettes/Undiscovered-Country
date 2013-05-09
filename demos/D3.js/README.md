@@ -54,8 +54,8 @@ D3.js Demo
     ```
     $ python -m SimpleHTTPServer
     ```
-    
-    Now open your browser to http://localhost:8000 (8000 being the default port), and you should be able to navigate directly to the file.
+        
+   Now open your browser to http://localhost:8000 (8000 being the default port), and you should be able to navigate directly to the file.
 
 3. Open up the [script](https://github.com/BerlinGeekettes/Undiscovered-Country/blob/master/demos/D3.js/CODEMOTION.UFO.VIS.js). The commands to load the data are already set up:
 
@@ -76,7 +76,7 @@ D3.js Demo
    
    Here we're loading in the data with `d3.text`. The first argument is the data we're uploading, the second is a callback function that executes once the data finishes loading. Once the data loads, we parse the rows with `d3.tsv` to get the info we need: date of sighting (converted to a Javascript Date type) and reported shape of the UFO. (Normally we'd just load and parse the data in one step with a call to `d3.tsv`, but that setup assumes a header row that our dataset lacks, so we need to load and then parse.)
 
-   Everything added after this point stays inside the `d3.text` callback function, where I have left a helpful comment.
+   Everything added after this point stays inside the `d3.text` callback function. You may have noticed the helpful comment I left there.
 
 4. Next, we apply a set of crossfilter commands to the parsed data, setting up a structure so that the data can be grouped easily. 
 
