@@ -30,11 +30,13 @@
         <p>Resources and tools used for the Codemotion'13 panel:<br>
         "Undiscovered Country: How To Get Started Exploring Big Data".</p>
 
+        <!-- ABOUT PANEL/REPO -->
         <h3>About the Panel/Repo</h3>
-        <p>Big Data is a Big Topic, but if you don’t have a PhD or if you’ve never worked at a supercomputer, how do you get started? During our <a href="http://berlin.codemotionworld.com/talk-page/?talk_name=undiscovered-country-how-to-get-started-exploring-big-data">panel at Codemotion Berlin</a> three ladies each presented a rapid 7-minute intro outlining a practical approach to big data for beginners. We discussed data visualization, statistical analysis, collaborative filtering and open datasets. Our panelists gave demos and live coding to dispell some of the mystery of data-crunching vodoo. This repo contains all the code and instructions you'll need to get started exploring.</p>
+        <p>Big Data is a Big Topic, but if you don’t have a PhD or if you’ve never worked at a supercomputer, how do you get started? During our <a href="http://berlin.codemotionworld.com/talk-page/?talk_name=undiscovered-country-how-to-get-started-exploring-big-data">panel at Codemotion Berlin</a> three ladies each presented a rapid 7-minute intro outlining a practical approach to big data for beginners. We discussed <a href="#dataviz">data visualization</a>, <a href="#statistical-analysis">statistical analysis</a>, <a href="#collaborative-filtering">collaborative filtering</a> and open datasets. Our panelists gave demos and live coding to dispell some of the mystery of data-crunching vodoo. This repo contains all the code and instructions you'll need to get started exploring.</p>
 
         <hr>
         
+        <!-- WHERE TO FIND DATSAETS -->
         <h3>Where to Find Datasets</h3>
         <p>Big Data is everywhere but sometimes it's hard to get your hands on it. Here are just a few places to find open datasets you can downlaod and start working with right away. If you're hungry for more, check out this <a href="http://www.quora.com/Data/Where-can-I-find-large-datasets-open-to-the-public">epic Quora question</a> which has lots more resources.</p>
 
@@ -46,8 +48,9 @@
 
         <hr>
 
+        <!-- ABOUT THE PANELISTS -->
         <h3>About the Panelists</h3>
-        <div class="clearfix relblock">
+        <div class="clearfix relblock" id="irina">
           <div class="headshot">
             <img src="http://berlingeekettes.github.io/Undiscovered-Country/images/irina.png" alt="Irina Ioana Brudaru" class="headshot">     
           </div>
@@ -57,7 +60,7 @@
           </div>
         </div>
                   
-        <div class="clearfix relblock">
+        <div class="clearfix relblock" id="kate">
           <div class="headshot">
             <img src="http://berlingeekettes.github.io/Undiscovered-Country/images/kate.jpg" alt="Kate McCurdy" class="headshot">
           </div>
@@ -67,7 +70,7 @@
           </div>
         </div>
         
-        <div class="clearfix relblock">
+        <div class="clearfix relblock" id="monika">
           <div class="headshot">
             <img src="http://berlingeekettes.github.io/Undiscovered-Country/images/monika.jpg" alt="Monika Moser" class="headshot">
           </div>
@@ -79,6 +82,7 @@
 
         <hr>
 
+        <!-- ABOUT THE MODERATORS -->
         <h3>About the Moderators</h3>
         <div class="clearfix relblock">
           <div class="headshot">
@@ -102,8 +106,9 @@
 
         <hr>
         
-        <h3>Demo Walkthrough: ...</h3>
-        <p>...</p>
+        <!-- DEMO: DATAVIZ -->
+        <h3 id="dataviz">Demo Walkthrough: DataViz with D3.js</h3>
+        <p>Presented by: <a href="#kate">Kate McCurdy</a></p>
         
         <p><strong>1. Download the dataset</strong></p>
         <p><a href="http://infochimps.com/datasets/60000-documented-ufo-sightings-with-text-descriptions-and-metada">http://infochimps.com/datasets/60000-documented-ufo-sightings-with-text-descriptions-and-metada</a><br>
@@ -111,45 +116,145 @@
         <br>
         
         <p><strong>2. Make an HTML page, the vessel for our visualization</strong></p>
-        <p>In the header - load the libraries</p>  
+        <p>In the header - load the libraries.</p>  
         <pre><code>
-<!-- source libraries -->
+    &lt;!-- source libraries --&gt;
+    &lt;script type="text/javascript" src="http://d3js.org/d3.v3.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="https://raw.github.com/square/crossfilter/master/crossfilter.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="https://raw.github.com/NickQiZhu/dc.js/master/dc.min.js"&gt;&lt;/script&gt;
+
+    &lt;!-- our script --&gt;
+    &lt;script type="text/javascript" src="CODEMOTION.UFO.VIS.js"&gt;&lt;/script&gt;
+
+    &lt;!-- dc.js stylesheet --&gt;
+    &lt;link rel="stylesheet" type="text/css" href="dc.css"/&gt;
+        </code></pre>
+        <br>
+        <p>We'll be using Mike Bostock's fantastic library <a href="http://d3js.org/">D3.js</a>, which is flexible and powerful but operates at a fairly low level (i.e. targeting individual SVG elements) - so even though there are all sorts of <a href="http://alignedleft.com/tutorials/d3/">wonderful</a> <a href="http://www.jeromecukier.net/blog/2013/03/05/d3-tutorial-at-strata-redux/">tutorials</a> <a href="http://christopheviau.com/d3_tutorial/">out</a> <a href="http://www.d3noob.org/">there</a> to ease the process, it can take some time to get a basic chart up and running.</p>
+        <p>To ease the process, we'll use the higher-level <a href="http://nickqizhu.github.io/dc.js/">dc.js</a>, which provides a nice wrapper to quickly build interactive D3 charts. DC.js also depends on <a href="http://square.github.io/crossfilter/">crossfilter.js</a>, another Bostock library that provides tools for slicing and dicing data across multiple dimensions.</p>
+        <p>The javascript libraries can be hosted remotely, but for styling you'll want to save a local copy of <a href="https://raw.github.com/NickQiZhu/dc.js/master/test/dc.css">dc.css</a>.</p>
+        <p>In the body - copy and paste the anchor divs from the <a href="http://nickqizhu.github.io/dc.js/">dc.js homepage</a>, with some minor modifications:</p>
+        <pre><code>
+    &lt;h1&gt;UFO Sightings&lt;/h1&gt;
+
+    &lt;div id="date-chart"&gt;                                                                   
+    &lt;p&gt;&lt;span&gt;Date of sighting&lt;/span&gt;                                                                    
+
+    &lt;a class="reset" href="javascript: dc.filterAll();dc.redrawAll();" style="display: none;"&gt;reset&lt;/a&gt;  
+
+    &lt;span class="reset" style="display: none;"&gt;Current filter: &lt;span class="filter"&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div id="shape-chart"&gt;                                                                     
+    &lt;p&gt;&lt;span&gt;Shape of UFO&lt;/span&gt;                                                                     
+
+    &lt;a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;"&gt;reset&lt;/a&gt;       
+
+    &lt;span class="reset" style="display: none;"&gt;Current filter: &lt;span class="filter"&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+        </code></pre>
+        
+        <p>Here's a commented <a href="https://github.com/BerlinGeekettes/Undiscovered-Country/blob/master/demos/D3.js/index.html">example.</a></p>
+
+        <p>For any who have absolutely zero Javascript experience (we've all been there) - to view the html page in browser with Javascript, you'll generally need to have a local server running. If you're using a Unix system (this includes Macs), this can be accomplished with one command in your console:</p>
+
+        <pre><code>
+    $ python -m SimpleHTTPServer
+        </code></pre>
+
+        <p>Now open your browser to http://localhost:8000 (8000 being the default port), and you should be able to navigate directly to the file.</p>
+        <br>
+    
+        
+        <p><strong>3. Open up the <a href="https://github.com/BerlinGeekettes/Undiscovered-Country/blob/master/demos/D3.js/CODEMOTION.UFO.VIS.js">script</a></strong></p>
+        <p>The commands to load the data are already set up.</p>
+        <pre><code>
+    d3.text('ufo_awesome.tsv', function(error, data) {
+
+    var ufo_data = d3.tsv.parseRows(data, function(d) {
+        return {
+        sighted_at: new Date(d[0].substring(0,4), d[0].substring(4,6), d[0].substring(6,8)),
+        shape: d[3]
+        };
+    });
+
+    // More functions coming here
+
+    });
+        </code></pre>
+
+        <p>Here we're loading in the data with <code>d3.text</code>. The first argument is the data we're uploading, the second is a callback function that executes once the data finishes loading. Once the data loads, we parse the rows with <code>d3.tsv</code> to get the info we need: date of sighting (converted to a Javascript Date type) and reported shape of the UFO. (Normally we'd just load and parse the data in one step with a call to <code>d3.tsv</code>, but that setup assumes a header row that our dataset lacks, so we need to load and then parse.)</p>
+
+        <p>Everything added after this point stays inside the <code>d3.text</code> callback function. You may have noticed the helpful comment I left there.</p>
+        <br>
+        
+        <p><strong>4. Apply a set of crossfilter commands</strong></p>
+        <p>We take the parsed data and set up a structure so that the data can be grouped easily.</p>
+        <pre><code>
+    var cx = crossfilter(ufo_data);
+
+    var date_dim = cx.dimension(function(d) { return d.sighted_at; });
+    var shape_dim = cx.dimension(function(d) { return d.shape; });
+
+    var count_by_date = date_dim.group().reduceCount();
+    var count_by_shape = shape_dim.group().reduceCount();
+        </code></pre>
+
+        <p>The first command makes a crossfilter object. The next two set up the dimensions of interest, here date and shape. The final two commands tell crossfilter how to aggregate ('group') along these dimensions. In this case we're just counting each record; if we had a numeric variable (say, Number Of Aliens On Board), we could have called <code>reduceSum</code> to aggegate by summing instead, or made our own custom accessor function for group reduction.</p>
+        <br>
+        
+        <p><strong>5. Add charts</strong></p>
+        <p>We'll create a bar chart showing number of UFO sightings by date from 1985 to 2011 (when the dataset was last updated) and a pie chart broken down by shape.</p>
+        <pre><code>
+    dc.barChart('#date-chart')
+    .dimension(date_dim)
+    .group(count_by_date)
+    .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2011,0, 1) ]));
+
+    dc.pieChart('#shape-chart')
+    .dimension(shape_dim)
+    .group(count_by_shape);
+
+    dc.renderAll();
+        </code></pre>
+
+        <p>The call to <code>dc.renderAll</code> draws the charts. Check it out in the browser!</p>
+        <br>
+        
+        <p><strong>6. Make things pretty</strong></p>
+        <p>One thing you may have noticed is that the bar chart was much too small. We can fix that, and add some nifty options like titles on hover and y-axis resizing when we filter from the pic chart</p>
+        <pre><code>
+    dc.barChart('#date-chart')
+    .dimension(date_dim)
+    .group(count_by_date)
+    .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2011,0, 1) ]))
+    .width(1000)      // set chart width
+    .brushOn(false)   // take away interactivity (necessary for titles)
+    .title(function(d) { 
+        return d3.time.format("%b %d, %Y")(d.key) + // put date in pretty format
+        ": " + d.value + " sightings"; })
+    .renderTitle(true)         
+    .elasticY(true);    // auto-resize y-axis on filtering
         </code></pre>
         <br>
         
-        <p><strong>X. ...</strong></p>
-        <pre><code>
-    > ...
-        </code></pre>
-        <br>
+        <p><strong>7. Admire the <a href="https://github.com/BerlinGeekettes/Undiscovered-Country/blob/master/demos/D3.js/CODEMOTION.UFO.VIS.DONE.js">finished product</a> <a href="https://github.com/BerlinGeekettes/Undiscovered-Country/blob/master/demos/D3.js/CODEMOTION.UFO.VIS.DONE.COMMENTED.js">(/with comments)</a></strong></p>
+        <p>Woohoo! Have fun investigating the time course for different UFO shapes by clicking and filtering on the pie chart. I especially invite you to click on the category 'fireball' and tell me what you think was happening on December 16, 1999. Goodness gracious!</p>
+
+        <hr>
         
-        <p><strong>X. ...</strong></p>
-        <pre><code>
-    > ...
-        </code></pre>
-        <br>
+        <!-- DEMO: R -->
+        <h3 id="statistical-analysis">Demo Walkthrough: R for Statistical Analysis</h3>
+        <p>Presented by: <a href="#irina">Irina Ioana Brudaru</a></p>
         
-        <p><strong>X. ...</strong></p>
-        <pre><code>
-    > ...
-        </code></pre>
-        <br>
-        
-        <p><strong>X. ...</strong></p>
-        <pre><code>
-    > ...
-        </code></pre>
-        <br>
-        
-        <p><strong>X. ...</strong></p>
-        <pre><code>
-    > ...
-        </code></pre>
-        <br>
+        <p>Coming soon.</p>
         
         <hr>
         
-        <h3>Demo Walkthrough: Redis for Recommendation</h3>
+        <!-- DEMO: COLLABORATIVE FILTERING -->
+        <h3 id="collaborative-filtering">Demo Walkthrough: Redis for Recommendation</h3>
+        <p>Presented by: <a href="#monika">Monika Moser</a></p>
+        
         <p>Redis is a NoSQL DB that is well suited for high read and write accesses, especially when small data losses can be accepted. Data is kept in-memory but redis also provides different persistence models. This makes redis useful, for example, to do realtime updates on counters for popular Twitter hashtags.</p>
         
         <p>This Demo shows how redis can be used to implement collaborative filtering using a sparse matrix. The underlying dataset for the demo is a <a href="http://www.infochimps.com/datasets/delicious-bookmarks-september-2009">RSS feed of bookmarks</a> from delicious.com. Redis is used to store the combinations of tags that were added to bookmarks. Based on the data stored in redis recommendations for related tags can be made. The demo shows a simplified scenario and demonstrates the power of sorted sets in redis.</p>
@@ -229,13 +334,7 @@
         <pre><code>
     redis> ZREVRANGE "delicious:photography" 0 -1
         </code></pre>
-        <br>            
-        <hr>
-        
-        
-        
-        <h3>Contact</h3>
-        <p>Geekettes contact info.</p>
+        <br>
       </section>
     </div>
 
