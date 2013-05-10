@@ -82,11 +82,6 @@ Walkthrough
 	Query elements by their score in reverse order, starts with the highest score
 	redis> ZREVRANGE demo:photography 0 10
 
-	Query elements by their score in reverse order for a certain range of scores.	
-	redis> ZREVRANGEBYSCORE demo:photography 10 0
-	redis> ZREVRANGEBYSCORE demo:photography +inf 0
-	redis> ZREVRANGEBYSCORE demo:photography 1 0
-
 	Load data into redis.
 	PREPARED:
 	> ruby load_delicious_data.rb data/delicious-rss # (~1250000 lines)
@@ -104,9 +99,14 @@ Walkthrough
 	Find 10 most popular tags:
 	redis> ZREVRANGE "delicious:all" 0 9 WITHSCORES
 
-	Find all that have been combined at least 1000 times:
-	redis> ZREVRANGEBYSCORE "delicious:all" +inf 1000 WITHSCORES
+	Find rank of ufo:
+	redis> ZREVRANK delicious:all ufo
 
-	List all tags that have been combined with "photography" sorted by popularity
-	redis> ZREVRANGE "delicious:photography" 0 -1
-	redis> ZREVRANGE "delicious:photography" 0 9
+	How often used:
+	redis> ZSCORE delicious:all ufo
+
+	List all tags that have been combined with "ufo" sorted by popularity
+	redis> ZREVRANGE "delicious:ufo" 0 -1 WITHSCORES
+
+	10 most popular tags combined with ufo
+	redis> ZREVRANGE "delicious:ufo" 0 9 WITHSCORES
